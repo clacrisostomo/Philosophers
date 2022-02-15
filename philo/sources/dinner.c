@@ -55,7 +55,7 @@ static int	verify(t_philo *philo)
 		return (1);
 	if (death_time(philo) == 0 && philo->satisfied == false)
 	{
-		pthread_mutex_unlock(philo->params->death);
+		pthread_mutex_lock(philo->params->death);
 		if (who_died(philo) == 0 && philo->params->philo_nbr != 1)
 			print_death(philo);
 		pthread_mutex_unlock(philo->params->death);
@@ -63,7 +63,7 @@ static int	verify(t_philo *philo)
 	}
 	if (philo->params->meals_nbr != 0)
 	{
-		while (++i < philo->params->meals_nbr)
+		while (++i < philo->params->philo_nbr)
 		{
 			if (philo[i].meals != philo->params->meals_nbr)
 				return (0);
